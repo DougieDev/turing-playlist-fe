@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import './App.css';
 import SongController from '../SongController/SongController';
+import { getSongs } from '../helpers/apiCalls'
+import Songs from '../Songs/Songs'
+// import SongCard from '../components/SongCard'
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      songQueue: []
+      songQueue: [],
+      error: ''
     }
+  }
+
+  componentDidMount() {
+    getSongs()
+      .then(songs => this.setState({ songQueue: songs }))
+      .catch(error => this.setState({ error: "Ya done MESSED UP AY-AY-RON" }))
   }
 
 
@@ -19,8 +29,9 @@ class App extends Component {
         </header>
         <div className="App-background">
           <main>
+            <Songs songs={this.state.songQueue}/>
           </main>
-        </div> 
+        </div>
       </div>
     )
   }
