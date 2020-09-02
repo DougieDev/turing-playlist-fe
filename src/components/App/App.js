@@ -3,6 +3,7 @@ import './App.css';
 import SongController from '../SongController/SongController';
 import { getSongs } from '../helpers/apiCalls'
 import Songs from '../Songs/Songs'
+import Form from '../Form/Form'
 // import SongCard from '../components/SongCard'
 
 class App extends Component {
@@ -20,6 +21,10 @@ class App extends Component {
       .catch(error => this.setState({ error: "Ya done MESSED UP AY-AY-RON" }))
   }
 
+  addNewSong = (newSong) => {
+    this.setState({ songQueue: [...this.state.songQueue, newSong]})
+  }
+
 
   render() {
     return (
@@ -29,6 +34,7 @@ class App extends Component {
         </header>
         <div className="App-background">
           <main>
+            <Form addNewSong={this.addNewSong} />
             <Songs songs={this.state.songQueue}/>
             <SongController />
           </main>
